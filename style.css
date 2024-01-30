@@ -1,0 +1,16 @@
+#coin {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+}
+
+#gold1 {
+    width: 30px;
+    height: 30px;
+}
+
+#glavni {
+    width: 484px;
+    height: 484px;
+    margin: 100px auto;
+}
