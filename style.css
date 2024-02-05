@@ -1,0 +1,22 @@
+body {
+    background: rgb(20, 69, 79);
+    background: linear-gradient(0deg, rgba(20, 69, 79, 1) 0%, rgba(35, 115, 131, 1) 49%, rgba(52, 203, 233, 1) 100%);
+}
+
+#coin {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+}
+
+#gold1 {
+    width: 30px;
+    height: 30px;
+}
+
+#glavni {
+    width: 484px;
+    height: 484px;
+    margin: 100px auto;
+    background-color: #091e44;
+}
