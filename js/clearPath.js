@@ -642,14 +642,10 @@ var pointsArray = [
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
-function drawSolution() {
+function clearPath() {
     const drawLinesWithDelay = (ctx, pointsArray, delay) => {
         ctx.beginPath();
-        const gradient = ctx.createLinearGradient(0, 0, 400, 0);
-        gradient.addColorStop("0", "blue");
-        gradient.addColorStop("0.5", "#34cbe9");
-        gradient.addColorStop("1.0", "#426BB4");
-        ctx.strokeStyle = gradient;
+        ctx.strokeStyle = "#091e44";
         ctx.lineWidth = 10;
 
 
@@ -657,12 +653,12 @@ function drawSolution() {
             const point = pointsArray[i];
             const x = point[0];
             const y = point[1];
-            const img = document.getElementById("gold1");
+            //const img = document.getElementById("gold1");
 
             if (i === 0) {
                 ctx.moveTo(x, y);
             } else {
-                ctx.lineTo(x, y);
+                ctx.clearRect(x, y, 5, 5);
                 //ctx.drawImage(img, x, y, 10, 10);
             }
 
@@ -683,44 +679,4 @@ function drawSolution() {
     const delayBetweenLines = 40;
     drawLinesWithDelay(ctx, pointsArray, delayBetweenLines);
 }
-drawSolution();
-/*setTimeout(() => {
-    clearPath();
-}, 5000);*/
-
-
-function clearPath() {
-    const drawLinesWithDelay = (ctx, pointsArray, delay) => {
-        ctx.beginPath();
-
-
-
-        const drawLineSegment = (i) => {
-            const point = pointsArray[i];
-            const x = point[0];
-            const y = point[1];
-
-            if (i === 0) {
-                ctx.moveTo(x, y);
-            } else {
-                //???
-                //ctx.clearRect(x, y, , );
-            }
-
-            ctx.stroke();
-
-            if (i < pointsArray.length - 1) {
-                setTimeout(() => {
-                    drawLineSegment(i + 1);
-                }, delay);
-            } else {
-                ctx.closePath();
-            }
-        };
-
-        drawLineSegment(0);
-
-    };
-    const delayBetweenLines = 40;
-    drawLinesWithDelay(ctx, pointsArray, delayBetweenLines);
-}
+clearPath();
