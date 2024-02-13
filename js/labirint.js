@@ -2039,8 +2039,8 @@ var ctx = canvas.getContext('2d');
 
 function labirint() {
     ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#1b92a9";
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = "#421A00";
 
     function drawMaze() {
         for (var i = 0; i < lines.length; i++) {

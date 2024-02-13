@@ -1,21 +1,60 @@
+*{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 body{
-    background-color: #34cbe9;
+    position: relative;
+    background: url(../images/background.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-#coin {
-    width: 15px;
-    height: 15px;
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.521); 
+    z-index: -1;
+}
+
+.poster{
+    width: 900px;
+    height: 950px;
+    display: flex;
+    margin: 0 auto;
+    z-index: 2;
+}
+
+#maze{
+    width: 700px;
+    height: 700px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 3;
+}
+
+#maze canvas{
     position: absolute;
+    top: 0;
+    left: 0;
+    z-index:1 ;
 }
 
-#gold1 {
-    width: 30px;
-    height: 30px;
+#maze img{
+    width: 700px;
+    position: absolute; 
+    top: 0;
+    left: 0;
+    z-index: 2; 
 }
 
-#glavni {
-    width: 484px;
-    height: 484px;
-    margin: 100px auto;
-    background-color: #091e44;
-}
+
+
+
