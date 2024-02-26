@@ -26,17 +26,38 @@ body{
     width: 900px;
     height: 950px;
     display: flex;
+    position: relative;
     margin: 0 auto;
     z-index: 2;
+}
+
+#header{
+    width: 800px;
+    height: 100px;
+    display: flex;
+    margin: 0 auto;
+    z-index: 5;
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, -5%);
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    font-family: 'Wild West Shadow', sans-serif;
+    font-size: 55px;
+    color: rgb(48, 35, 12);
 }
 
 #maze{
     width: 700px;
     height: 700px;
     position: fixed;
-    top: 50%;
+    top: 75%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -75%);
     z-index: 3;
 }
 
@@ -47,12 +68,22 @@ body{
     z-index:1 ;
 }
 
-#maze img{
-    width: 700px;
+.menu{
+    width: 300px;
+    position: absolute;
+    z-index: 10;
+    display: flex;
+    top: 50%;
+    left: 50%;
+}
+
+.button{
     position: absolute; 
-    top: 0;
-    left: 0;
-    z-index: 2; 
+    z-index: 100;
+    display: flex;
+    top: 50%; 
+    left: 10%;
+    transform: translate(-50%, 10%);
 }
 
 

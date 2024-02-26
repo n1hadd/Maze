@@ -2042,15 +2042,15 @@ function drawMaze() {
     ctx.strokeStyle = "black";
     scale = 1.4463;
 
-	canvas.width = 484 * scale;
-	canvas.height = 484 * scale;
-	ctx.scale(scale, scale);
+    canvas.width = 484 * scale;
+    canvas.height = 484 * scale;
+    ctx.scale(scale, scale);
     ctx.beginPath();
-        for (var i = 0; i < lines.length; i++) {
-            ctx.moveTo(lines[i].x1, lines[i].y1);
-            ctx.lineTo(lines[i].x2, lines[i].y2);
-        }
-        ctx.closePath();
-        ctx.stroke();
+    for (var i = 0; i < lines.length; i++) {
+        ctx.moveTo(lines[i].x1, lines[i].y1);
+        ctx.lineTo(lines[i].x2, lines[i].y2);
+    }
+    ctx.closePath();
+    ctx.stroke();
 }
 drawMaze();

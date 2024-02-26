@@ -289,7 +289,7 @@ var pointsArray = [
     [250, 330],
     [245, 330],
     [240, 330],
-    [236, 330],   
+    [236, 330],
     [234, 330],
     [234, 335],
     [234, 340],
@@ -620,13 +620,9 @@ var ctx = canvas.getContext('2d');
 function drawSolution() {
     const drawLinesWithDelay = (ctx, pointsArray, delay) => {
         ctx.beginPath();
-        const gradient = ctx.createLinearGradient(0, 0, 400, 0);
-        gradient.addColorStop("0", "blue");
-        gradient.addColorStop("0.5", "#34cbe9");
-        gradient.addColorStop("1.0", "#426BB4");
-        ctx.strokeStyle = gradient;
+        ctx.strokeStyle = "#000000";
         ctx.lineWidth = 10;
-        
+
         var originalWidth = 484;
         var originalHeight = 484;
 
@@ -638,7 +634,7 @@ function drawSolution() {
 
 
         const drawLineSegment = (i) => {
-            
+
             const point = pointsArray[i];
             const x = point[0] * widthScaleFactor;
             const y = point[1] * heightScaleFactor;
