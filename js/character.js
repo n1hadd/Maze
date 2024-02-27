@@ -2071,7 +2071,7 @@ function drawCh() {
 	character.height = 484 * scale;
 	ctx2.scale(scale, scale);
 
-	url = "images/cowboy.png";
+	url = "images/hunter.png";
 	img = document.createElement("img");
 	img.setAttribute("src", url);
 	img.onload = function () {

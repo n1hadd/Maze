@@ -27,7 +27,7 @@ window.onload = function () {
         var nextX = posX;
         var nextY = posY;
 
-        // Move character position based on arrow keys
+        
         if (key == 37) { // left arrow
             nextX -= 5;
         } else if (key == 38) { // up arrow
@@ -38,7 +38,7 @@ window.onload = function () {
             nextY += 5;
         }
 
-        // Check for collision with maze walls
+        
         if (!isWallCollision(nextX, nextY, charWidth, charHeight)) {
             posX = nextX;
             posY = nextY;
@@ -46,7 +46,7 @@ window.onload = function () {
         }
     });
 
-    // Function to redraw the maze and character
+    
     function redrawMazeAndCharacter() {
         // Clear canvas
         ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -56,12 +56,12 @@ window.onload = function () {
         ctx.drawImage(charImg, posX, posY, charWidth, charHeight);
     }
 
-    // Function to check collision with maze walls
+    
     function isWallCollision(x, y, width, height) {
         var imageData = ctx.getImageData(x, y, width, height);
         var pixels = imageData.data;
 
-        // Check each pixel in the character's bounding box
+        
         for (var i = 0; i < pixels.length; i += 4) {
             var red = pixels[i];
             var green = pixels[i + 1];
