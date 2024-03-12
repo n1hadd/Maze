@@ -1,11 +1,12 @@
-*{
+* {
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
-body{
+
+body {
     position: relative;
-    background: url(../images/background.jpg) no-repeat center center fixed; 
+    background: url(../images/background.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -18,11 +19,11 @@ body{
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.521); 
+    background-color: rgba(0, 0, 0, 0.521);
     z-index: -1;
 }
 
-.poster{
+.poster {
     width: 900px;
     height: 950px;
     display: flex;
@@ -31,7 +32,7 @@ body{
     z-index: 2;
 }
 
-#header{
+#header {
     width: 800px;
     height: 100px;
     display: flex;
@@ -45,13 +46,13 @@ body{
     align-items: center;
 }
 
-.title{
+.title {
     font-family: 'Wild West Shadow', sans-serif;
     font-size: 55px;
     color: rgb(48, 35, 12);
 }
 
-#maze{
+#maze {
     width: 700px;
     height: 700px;
     position: fixed;
@@ -61,14 +62,14 @@ body{
     z-index: 3;
 }
 
-#maze canvas{
+#maze canvas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index:1 ;
+    z-index: 1;
 }
 
-.menu{
+.menu {
     width: 300px;
     position: absolute;
     z-index: 10;
@@ -77,15 +78,11 @@ body{
     left: 50%;
 }
 
-.button{
-    position: absolute; 
+.button {
+    position: absolute;
     z-index: 100;
     display: flex;
-    top: 50%; 
+    top: 50%;
     left: 10%;
     transform: translate(-50%, 10%);
 }
-
-
-
-
