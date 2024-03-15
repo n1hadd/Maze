@@ -2652,15 +2652,19 @@ var pointsArray = [
     [250, 482]
 ];
 
+
+
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
 var canvas1 = document.getElementById('myCanvas');
 var ctx1 = canvas.getContext('2d');
 
-
 const character = document.getElementById("myCanvas2");
 const ctx2 = character.getContext("2d");
+
+const cactus = document.getElementById("myCanvas3");
+const ctx3 = cactus.getContext("2d");
 
 function drawMaze() {
     ctx.lineWidth = 2;
@@ -2679,6 +2683,25 @@ function drawMaze() {
     ctx.closePath();
 }
 drawMaze();
+
+
+var cactusW = 20;
+var cactusH = 20;
+var cactusX;
+var cactusY;
+function drawCactus() {
+    var cactusImg = new Image();
+    cactusImg.src = 'images/cactus.png';
+    for(i=0; i<pointsArray.length;i++){
+        const p = pointsArray[i];
+        cactusX = p[0] - 4;
+        cactusY = p[1];
+        if(i % 50 == 0){
+            ctx3.drawImage(cactusImg, cactusX, cactusY, cactusW, cactusH);
+        }
+    }
+}
+
 
 var xCowboy;
 var yCowboy;
@@ -2711,10 +2734,10 @@ function drawSolution() {
                 setTimeout(() => {
                     ctx1.clearRect(0, 0, myCanvas.width, myCanvas.height);
                     drawMaze();
+                    drawCactus();
                     drawLineSegment(i + 1);
                 }, delay);
             } else {
-                ctx1.closePath();
                 ctx1.clearRect(0, 0, canvas1.width, canvas1.height);
                 drawMaze();
             }
@@ -2773,33 +2796,34 @@ document.addEventListener("keydown", (e) => {
     k = (y - 2) / m * 2 + 1;
 
     switch (key) {
-        case "w":
-        case "W":
         case "ArrowUp":
             if (y > 2) {
                 if (arr[(x - 4) / m * 2 + 1][(y - 2) / m * 2 + 1 - 1] == 0) {
                     ctx2.clearRect(0, 0, canvas.width, canvas.height);
                     y = y - m;
-                    ctx2.drawImage(img, x, y, hunterW, hunterH);
+                    ctx2.drawImage(img, x, y, hunterW, hunterH);console.log("x: "+x+" y: "+y);
                     if (checkColision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
                         console.log("Colision");
-                        removeSolution();
+                        Swal.fire({
+                            title: "Colision",
+                            icon: "confirm"
+                        });
                     }
                 }
             }
             break;
 
-
-        case "s":
-        case "S":
         case "ArrowDown":
             if (arr[(x - 4) / m * 2 + 1][(y - 2) / m * 2 + 1 + 1] == 0) {
                 ctx2.clearRect(0, 0, canvas.width, canvas.height);
                 y = y + m;
-                ctx2.drawImage(img, x, y, hunterW, hunterH);
+                ctx2.drawImage(img, x, y, hunterW, hunterH);console.log("x: "+x+" y: "+y);
                 if (checkColision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
                     console.log("Colision");
-                    removeSolution();
+                    Swal.fire({
+                        title: "Colision",
+                        icon: "confirm"
+                    });
                 }
 
             }
@@ -2816,32 +2840,34 @@ document.addEventListener("keydown", (e) => {
             break;
 
 
-        case "a":
-        case "A":
         case "ArrowLeft":
             if (arr[(x - 4) / m * 2 + 1 - 1][(y - 2) / m * 2 + 1] == 0) {
                 ctx2.clearRect(0, 0, canvas.width, canvas.height);
                 x = x - m;
-                ctx2.drawImage(img, x, y, hunterW, 16);
+                ctx2.drawImage(img, x, y, hunterW, 16);console.log("x: "+x+" y: "+y);
                 if (checkColision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
                     console.log("Colision");
-                    removeSolution();
+                    Swal.fire({
+                        title: "Colision",
+                        icon: "confirm"
+                    });
                 }
             }
 
             break;
 
-
-        case "d":
-        case "D":
         case "ArrowRight":
             if (arr[(x - 4) / m * 2 + 1 + 1][(y - 2) / m * 2 + 1] == 0) {
                 ctx2.clearRect(0, 0, canvas.width, canvas.height);
                 x = x + m;
                 ctx2.drawImage(img, x, y, hunterW, hunterH);
+                console.log("x: "+x+" y: "+y);
                 if (checkColision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
                     console.log("Colision");
-                    removeSolution();
+                    Swal.fire({
+                        title: "Colision",
+                        icon: "confirm"
+                    });
                 }
             }
 
@@ -2883,3 +2909,5 @@ function checkColision(x1, y1, w1, h1, x2, y2, w2, h2) {
     } else
         return true;
 }
+
+
