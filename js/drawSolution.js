@@ -2035,7 +2035,6 @@ var lines = [{
     y2: 482
 }]
 
-
 var pointsArray = [
     [234, 2],
     [234, 3],
@@ -2520,6 +2519,25 @@ var pointsArray = [
     [470, 474],
     [465, 474],
     [460, 474],
+    [455, 474],
+    [450, 474],
+    [445, 474],
+    [440, 474],
+    [435, 474],
+    [430, 474],
+    [425, 474],
+    [420, 474],
+    [415, 474],
+    [410, 474],
+    [405, 474],
+    [400, 474],
+    [395, 474],
+    [390, 474],
+    [385, 474],
+    [380, 474],
+    [375, 474],
+    [370, 474],
+    [365, 474],
     [362, 474],
     [362, 470],
     [362, 465],
@@ -2652,17 +2670,54 @@ var pointsArray = [
     [250, 480],
     [250, 482]
 ];
-var canvas = document.getElementById('myCanvas');
+
+var cactusLoc = [
+    [132, 82],
+    [228, 98],
+    [244, 66],
+    [260, 178],
+    [196, 146],
+    [292, 258],
+    [276, 290],
+    [244, 354],
+    [324, 354],
+    [340, 354],
+    [404, 338],
+    [436, 402],
+    [420, 466],
+    [292, 466],
+    [244, 402],
+    [212, 418],
+    [212, 450]
+];
+
+function exec(){
+    var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
+const cactus = document.getElementById("myCanvas2");
+const ctx2 = cactus.getContext("2d");
 
-var canvas1 = document.getElementById('myCanvas');
-var ctx1 = canvas.getContext('2d');
+const hunter = document.getElementById("myCanvas22");
+const ctxH = cactus.getContext("2d");
 
+var cowboy = document.getElementById('myCanvas3');
+var ctx3 = canvas.getContext('2d');
+
+//const character = document.getElementById("myCanvas2");
+//const ctx2 = character.getContext("2d");
+
+sound = new Audio('wildwest.mp3');
+sound.volume=0.30;
+
+document.addEventListener("click", (event) => {
+  sound.play();
+});;
+
+var scale = 1.4463;
 function drawMaze() {
     ctx.lineWidth = 2;
-    ctx.strokeStyle = "black";
-    scale = 1.4463;
+    ctx.strokeStyle = "#898989";
 
     canvas.width = 484 * scale;
     canvas.height = 484 * scale;
@@ -2672,6 +2727,214 @@ function drawMaze() {
         ctx.moveTo(lines[i].x1, lines[i].y1);
         ctx.lineTo(lines[i].x2, lines[i].y2);
     }
-    ctx.closePath();
     ctx.stroke();
+    ctx.closePath();
+}
+drawMaze();
+
+
+var cactusW = 18;
+var cactusH = 15;
+var cactusX;
+var cactusY;
+function drawCactus() {
+    cactus.width = 484 * scale;
+    cactus.height = 484 * scale;
+    ctx2.scale(scale, scale);
+    var cactusImg = new Image();
+    cactusImg.src = 'images/cactus.png';
+    for (i = 0; i < cactusLoc.length; i++) {
+        const p = cactusLoc[i];
+        cactusX = p[0] - 4;
+        cactusY = p[1];
+        ctx3.drawImage(cactusImg, cactusX, cactusY, cactusW, cactusH);
+    }
+}
+
+var xCowboy;
+var yCowboy;
+var cowboyH;
+var cowboyW;
+var startPointX = 228;
+var startPointY = 2;
+let jumping;
+function drawSolution() {
+    const drawLinesWithDelay = (ctx3, pointsArray, fps) => {
+        cowboyH = 15;
+        cowboyW = 12;
+
+        const drawLineSegment = (i, startTime) => {
+            const point = pointsArray[i];
+            xCowboy = point[0] - cowboyW + 7;
+            yCowboy = point[1] - cowboyH + 7;
+    
+            // Draw cowboy before collision detection
+            ctx3.drawImage(charImg, xCowboy, yCowboy, cowboyW, cowboyH);
+    
+            // Check for collision with cacti
+            for (let j = 0; j < cactusLoc.length; j++) {
+                const cp = cactusLoc[j];
+                const cactX = cp[0];
+                const cactY = cp[1];
+    
+                if (checkCollisionCactus(xCowboy, yCowboy, cowboyW, cowboyH, cactX, cactY, cactusW, cactusH)) {
+                    
+                    // Increase cowboy's size
+                    cowboyW = 17; 
+                    cowboyH = 20; 
+    
+                    // Redraw the canvas with the updated cowboy dimensions
+                    ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
+                    drawMaze();
+                    drawCactus();
+                    ctx3.drawImage(charImg, xCowboy, yCowboy, cowboyW, cowboyH);
+    
+                    // Reset cowboy's size after a delay
+                    setTimeout(() => {
+                        cowboyW = 12; 
+                        cowboyH = 15; 
+    
+                        ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
+                        drawMaze();
+                        drawCactus();
+                    }, 300); // Adjust the delay as needed
+                }
+            }
+            
+            if (xCowboy >= 250 && yCowboy >= 482) {
+                sound.pause(); // Pause the music
+            }
+
+            // Continue drawing line segments
+            if (i < pointsArray.length - 1) {
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - startTime;
+                const timeToNextFrame = Math.max(0, 1000 / fps - elapsedTime);
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
+                        drawMaze();
+                        drawCactus();
+                        drawLineSegment(i + 1, currentTime);
+                    });
+                }, timeToNextFrame);
+            } else {
+                ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
+                drawMaze();
+            }
+        };
+    
+        drawLineSegment(0, Date.now());
+    };
+    const targetFPS = 15;
+    drawLinesWithDelay(ctx3, pointsArray, targetFPS);
+}
+
+var charImg = new Image();
+charImg.src = 'images/cowboy.png';
+charImg.onload = function () {
+    drawSolution(); // Start animation after image is loaded
+};
+
+function drawHunterSolution() {
+    const drawHunterWithDelay = (ctxH, pointsArray, fps) => {
+        hunterH = 15;
+        hunterW = 12;
+
+        const drawHunter = (i, startTime) => {
+            const point = pointsArray[i];
+            xHunter = point[0] - hunterW + 7;
+            yHunter = point[1] - hunterH + 7;
+    
+            // Draw cowboy before collision detection
+            ctxH.drawImage(hunterImg, xHunter, yHunter, hunterW, hunterH);
+    
+            // Check for collision with cacti
+            for (let j = 0; j < cactusLoc.length; j++) {
+                const cp = cactusLoc[j];
+                const cactX = cp[0];
+                const cactY = cp[1];
+    
+                if (checkCollisionCactus(xHunter, yHunter, hunterW, hunterH, cactX, cactY, cactusW, cactusH)) {
+                    
+                    // Increase cowboy's size
+                    hunterW = 17; 
+                    hunterH = 20; 
+    
+                    // Redraw the canvas with the updated cowboy dimensions
+                    ctxH.clearRect(0, 0, myCanvas22.width, myCanvas22.height);
+                    ctxH.drawImage(hunterImg, xHunter, yHunter, hunterW, hunterH);
+                    drawMaze();
+                    drawCactus();
+                    
+    
+                    // Reset cowboy's size after a delay
+                    setTimeout(() => {
+                        hunterW = 12; 
+                        hunterH = 15; 
+    
+                        ctxH.clearRect(0, 0, myCanvas22.width, myCanvas22.height);
+                        ctxH.drawImage(hunterImg, xHunter, yHunter, hunterW, hunterH);
+                        drawMaze();
+                        drawCactus();
+                    }, 300); // Adjust the delay as needed
+                }
+            }
+            
+            if (xHunter >= 250 && yHunter >= 482) {
+                sound.pause(); // Pause the music
+            }
+
+            // Continue drawing line segments
+            if (i < pointsArray.length - 1) {
+                const currentTime = Date.now();
+                const elapsedTime = currentTime - startTime;
+                const timeToNextFrame = Math.max(0, 1000 / fps - elapsedTime);
+                setTimeout(() => {
+                    requestAnimationFrame(() => {
+                        ctxH.clearRect(0, 0, myCanvas22.width, myCanvas22.height);
+                        ctxH.drawImage(hunterImg, xHunter, yHunter, hunterW, hunterH);
+                        drawMaze();
+                        drawCactus();
+                        drawHunter(i + 1, currentTime);
+                    });
+                }, timeToNextFrame);
+            } else {
+                ctxH.clearRect(0, 0, myCanvas22.width, myCanvas22.height);
+                ctxH.drawImage(hunterImg, xHunter, yHunter, hunterW, hunterH);
+                drawMaze();
+                drawCactus();
+            }
+        };
+    
+        drawHunter(0, Date.now());
+    };
+    const targetFPS = 15;
+    drawHunterWithDelay(ctxH, pointsArray, targetFPS);
+    
+}
+
+var hunterImg = new Image();
+hunterImg.src = 'images/hunter.png';
+hunterImg.onload = function () {
+    setTimeout(()=>{
+        drawHunterSolution(); // Start animation after image is loaded
+    },1500);
+    
+};
+
+
+function removeSolution() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawMaze();
+}
+removeSolution();
+
+
+function checkCollisionCactus(x1, y1, w1, h1, x2, y2, w2, h2) {
+    if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2) {
+        return false;
+    } else
+        return true;
+}
 }

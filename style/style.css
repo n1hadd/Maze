@@ -23,12 +23,29 @@ body {
     z-index: -1;
 }
 
+.custom-div {
+    width: 900px; /* Same width as .poster */
+    height: 950px; /* Same height as .poster */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0; /* Adjust z-index as needed */
+    
+}
+
 .poster {
     width: 900px;
-    height: 950px;
+    height: 950px; /* Adjust this as needed */
     display: flex;
-    position: relative;
-    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0 auto; /* Center horizontally */
     z-index: 2;
 }
 
@@ -37,14 +54,15 @@ body {
     height: 100px;
     display: flex;
     margin: 0 auto;
-    z-index: 5;
-    position: absolute;
-    top: 3%;
+    z-index: 10;
+    position: fixed;
+    top: 8%;
     left: 50%;
-    transform: translate(-50%, -3%);
+    transform: translate(-50%, -50%);
     justify-content: center;
     align-items: center;
 }
+
 
 .title {
     font-family: 'Wild West Shadow', sans-serif;
@@ -56,12 +74,11 @@ body {
     width: 700px;
     height: 700px;
     position: fixed;
-    top: 80%;
+    top: 55%; /* Adjust as needed */
     left: 50%;
-    transform: translate(-50%, -80%);
+    transform: translate(-50%, -50%);
     z-index: 3;
 }
-
 #maze canvas {
     position: absolute;
     top: 0;
@@ -69,20 +86,76 @@ body {
     z-index: 1;
 }
 
-.menu {
-    width: 300px;
-    position: absolute;
-    z-index: 10;
-    display: flex;
-    top: 50%;
-    left: 50%;
+#signpost {
+    width: 20%; /* Adjust width as needed */
+    height: 50%; /* Adjust height as needed */
+    position: fixed;
+    top: 55%;
+    left: calc(75% + 100px); /* Initial position */
+    transform: translateY(-50%);
+    z-index: 100; 
 }
 
-.button {
-    position: absolute;
-    z-index: 100;
-    display: flex;
-    top: 50%;
-    left: 10%;
-    transform: translate(-50%, 10%);
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+    #signpost {
+        left: calc(85% + 100px); /* Adjust left position for smaller screens */
+    }
 }
+
+/* Media query for even smaller screens */
+@media screen and (max-width: 480px) {
+    #signpost {
+        left: calc(90% + 200px); /* Adjust left position for even smaller screens */
+    }
+}
+
+#signpost img {
+    position: absolute; /* Set image position to relative */
+    display: block; /* Ensure the image is displayed as a block element */
+    margin: 0 auto; /* Center the image horizontally */
+    width: 100%; /* Set image width to 100% */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.top-button {
+    position: relative; /* Set button position to relative */
+    left: 40%; /* Adjust left positioning as needed */
+    top: 15%; /* Adjust top positioning as needed */
+    transform: translateX(-50%); /* Center buttons horizontally */
+    display: block; /* Ensure buttons are displayed as block elements */
+    margin-bottom: calc(var(--button-margin) * 1px); /* Set initial margin */
+    font-size: 16px; /* Adjust font size as needed */
+}
+
+
+/* Adjust margin based on the height of the signpost */
+@media (min-height: 600px) {
+    #signpost {
+        --button-margin: 100; /* Adjust margin value for higher signpost heights */
+    }
+}
+
+@media (min-height: 800px) {
+    #signpost {
+        --button-margin: 100; /* Adjust margin value for even higher signpost heights */
+    }
+}
+
+.button-style{
+    background: #c4964d;
+    border-radius: 30%;
+    padding: 10px;
+    border: none;
+    font-family: 'WildWest', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+}
+
+
+
+
+
+
+
+
