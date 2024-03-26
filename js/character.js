@@ -2670,351 +2670,190 @@ var pointsArray = [
     [250, 480],
     [250, 482]
 ];
-
-var cactusLoc = [
-    [132, 82],
-    [228, 98],
-    [244, 66],
-    [260, 178],
-    [196, 146],
-    [292, 258],
-    [276, 290],
-    [244, 354],
-    [324, 354],
-    [340, 354],
-    [404, 338],
-    [436, 402],
-    [420, 466],
-    [292, 466],
-    [244, 402],
-    [212, 418],
-    [196, 434],
-    [212, 450]
-];
-
-function run(){
-    var canvas = document.getElementById('myCanvas');
+var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
-const cactus = document.getElementById("myCanvas2");
-const ctx2 = cactus.getContext("2d");
-
-var cowboy = document.getElementById('myCanvas3');
-var ctx3 = canvas.getContext('2d');
-
-//const character = document.getElementById("myCanvas2");
-//const ctx2 = character.getContext("2d");
+var canvas1 = document.getElementById('myCanvas1');
+var ctx1 = canvas.getContext('2d');
 
 
-
-var scale = 1.4463;
-function drawMaze() {
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "#898989";
-
-    canvas.width = 484 * scale;
-    canvas.height = 484 * scale;
-    ctx.scale(scale, scale);
-    ctx.beginPath();
-    for (var i = 0; i < lines.length; i++) {
-        ctx.moveTo(lines[i].x1, lines[i].y1);
-        ctx.lineTo(lines[i].x2, lines[i].y2);
-    }
-    ctx.stroke();
-    ctx.closePath();
-}
-drawMaze();
-
-
-var cactusW = 18;
-var cactusH = 15;
-var cactusX;
-var cactusY;
-function drawCactus() {
-    cactus.width = 484 * scale;
-    cactus.height = 484 * scale;
-    ctx2.scale(scale, scale);
-    var cactusImg = new Image();
-    cactusImg.src = 'images/cactus.png';
-    for (i = 0; i < cactusLoc.length; i++) {
-        const p = cactusLoc[i];
-        cactusX = p[0] - 4;
-        cactusY = p[1];
-        ctx3.drawImage(cactusImg, cactusX, cactusY, cactusW, cactusH);
-    }
+function showCreditsAlert() {
+    Swal.fire({
+        title: 'Credits',
+        html: "Author: Nihad Ajdaroski, 4. Ra",
+        confirmButtonText: 'OK',
+        customClass: {
+            popup: 'sweet',
+            title: 'title1',
+            html: 'text',
+            confirmButton: 'confirmBut'
+        }
+    });
 }
 
-var xCowboy;
-var yCowboy;
-var cowboyH;
-var cowboyW;
-var startPointX = 228;
-var startPointY = 2;
-let jumping;
-function drawSolution() {
-    const drawLinesWithDelay = (ctx3, pointsArray, fps) => {
-        var charImg = new Image();
-        charImg.src = 'images/cowboy.png';
-        cowboyH = 15;
-        cowboyW = 12;
+function refreshPage() {
+    location.reload();
+}
 
-        const handleSpaceKey = (event) => {
-            // Check if the pressed key is the space key (key code 32)
-            if (event.keyCode === 32) {
-                // Space key is pressed
-                console.log("Space key is pressed");
-                // Store the old width and height
-                var oldCowboyW = cowboyW;
-                var oldCowboyH = cowboyH;
-                // Set jumping to true
-                jumping = true;
-                // Clear the canvas
-                ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
-                drawMaze();
-                drawCactus();
-                // Draw the cowboy image at an increased size temporarily (e.g., 20x20)
-                ctx3.drawImage(charImg, xCowboy, yCowboy, 20, 20);
-                
-                
-                // Reset the width and height after a delay
-                setTimeout(() => {
-                    ctx3.drawImage(charImg, xCowboy, yCowboy, oldCowboyW, oldCowboyH); // Reset height
-                    jumping = false; // Set jumping to false
-                }, 1000); // Adjust the delay as needed
-            }
-        };
-        
+function run() {
 
-        document.addEventListener("keydown", handleSpaceKey);
+    sound = new Audio('wildwest.mp3');
+    sound.volume = 0.30;
 
-        const drawLineSegment = (i, startTime) => {
-            const point = pointsArray[i];
-            xCowboy = point[0] - cowboyW + 7;
-            yCowboy = point[1] - cowboyH + 7;
+    document.addEventListener("click", (event) => {
+        sound.play();
+    });;
 
-            if (i == 0) {
-                ctx3.drawImage(charImg, 228, 2, cowboyW, cowboyH);
-            } else {
-                for (let j = 0; j < cactusLoc.length; j++) {
-                    const cp = cactusLoc[j];
-                    const cactX = cp[0];
-                    const cactY = cp[1];
+    function disableButton() {
+        document.getElementById("myButton").disabled = true;
+    }
+    disableButton();
+    var scale = 1.4463;
 
-                    if (!jumping && checkCollisionCactus(xCowboy, yCowboy, cowboyW, cowboyH, cactX, cactY, cactusW, cactusH)) {
-                        console.log("Collision with cactus.");
-                        xCowboy = startPointX; // Reset cowboy's X position to the starting point
-                        yCowboy = startPointY; // Reset cowboy's Y position to the starting point
-                        ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
-                        drawMaze(); // Redraw maze
-                        drawCactus(); // Redraw cacti
-                        //ctx3.drawImage(charImg, startPointX, startPointY, cowboyW, cowboyH); // Draw cowboy at starting position
-                        setTimeout(() => {
-                            ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
-                            drawMaze();
-                            drawCactus();
-                            drawSolution(0, Date.now()); // Restart the drawing process
-                        }, 500);
-                        return; // Exit the function if collision occurs
-                    }
-                }
-                ctx3.drawImage(charImg, xCowboy, yCowboy, cowboyW, cowboyH);
-            }
+    function drawMaze() {
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "#898989";
 
-            if (i < pointsArray.length - 1) {
-                const currentTime = Date.now();
-                const elapsedTime = currentTime - startTime;
-                const timeToNextFrame = Math.max(0, 1000 / fps - elapsedTime);
-                setTimeout(() => {
-                    requestAnimationFrame(() => {
-                        ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
-                        drawMaze();
-                        drawCactus();
-                        drawLineSegment(i + 1, currentTime);
-                    });
-                }, timeToNextFrame);
-            } else {
-                ctx3.clearRect(0, 0, myCanvas3.width, myCanvas3.height);
-                drawMaze();
-            }
-        };
+        canvas.width = 484 * scale;
+        canvas.height = 484 * scale;
+        ctx.scale(scale, scale);
+        ctx.beginPath();
+        for (var i = 0; i < lines.length; i++) {
+            ctx.moveTo(lines[i].x1, lines[i].y1);
+            ctx.lineTo(lines[i].x2, lines[i].y2);
+        }
+        ctx.stroke();
+        ctx.closePath();
+    }
 
-        drawLineSegment(0, Date.now());
+    var char1 = new Image();
+    char1.src = 'images/char1.png';
+    var char2 = new Image();
+    char2.src = 'images/char2.png';
+
+    var spriteClips = {
+        'up': { x: 0, y: 0 },
+        'right': { x: 0, y: 32 },
+        'down': { x: 0, y: 64 },
+        'left': { x: 0, y: 96 }
     };
-    const targetFPS = 5;
-    drawLinesWithDelay(ctx, pointsArray, targetFPS);
-}
 
-var charImg = new Image();
-charImg.src = 'images/cowboy.png';
-charImg.onload = function () {
-    drawSolution(); // Start animation after image is loaded
-};
-
-
-function removeSolution() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawMaze();
-}
-
-/*var hunterW = 12;
-var hunterH = 15;
-
-function drawCh() {
-    character.width = 484 * scale;
-    character.height = 484 * scale;
-    ctx2.scale(scale, scale);
-
-    url = "images/hunter.png";
-    img = document.createElement("img");
-    img.setAttribute("src", url);
-    img.onload = function () {
-        ctx2.drawImage(img, 228, 2, hunterW, hunterH);
-    };
-}
-document.addEventListener("DOMContentLoaded", (event) => {
-    drawCh();
-});
-
-me = true;
-
-function moveCh() {
-    me = false;
-    removeSolution();
-    ctx2.clearRect(0, 0, canvas.width, canvas.height);
-    character.style.display = "block";
-    y = 2;
-    x = 228;
-    m = 16;
-    ctx2.drawImage(img, x, y, hunterW, hunterH);
-
-}
-document.addEventListener("keydown", (e) => {
-    if (me) return;
-    const key = e.key;
-
-    j = (x - 4) / m * 2 + 1;
-    k = (y - 2) / m * 2 + 1;
-
-    switch (key) {
-        case "ArrowUp":
-            if (y > 2) {
-                if (arr[(x - 4) / m * 2 + 1][(y - 2) / m * 2 + 1 - 1] == 0) {
-                    ctx2.clearRect(0, 0, canvas.width, canvas.height);
-                    y = y - m;
-                    ctx2.drawImage(img, x, y, hunterW, hunterH); console.log("x: " + x + " y: " + y);
-                    if (checkCollision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
-                        console.log("Colision");
-                        Swal.fire({
-                            title: "Colision",
-                            icon: "confirm"
-                        });
+    var currentIndex = 0;
+    var chW = 12;
+    var chH = 15;
+    function drawChar1() {
+        if (currentIndex < pointsArray.length) {
+            var point = pointsArray[currentIndex];
+            var x = point[0] - chW + 7;
+            var y = point[1] - chH + 7;
+            var prevPoint = currentIndex > 0 ? pointsArray[currentIndex - 1] : point;
+            var prevX = prevPoint[0] - chW + 7;
+            var prevY = prevPoint[1] - chH + 7;
+            if (x == 250 - chW + 7 && y == 482 - chH + 7) {
+                Swal.fire({
+                    title: 'The END',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                    customClass: {
+                        popup: 'sweet',
+                        icon: 'ico',
+                        title: 'title2',
+                        confirmButton: 'confirmBut2'
                     }
-                }
-            }
-            break;
-
-        case "ArrowDown":
-            if (arr[(x - 4) / m * 2 + 1][(y - 2) / m * 2 + 1 + 1] == 0) {
-                ctx2.clearRect(0, 0, canvas.width, canvas.height);
-                y = y + m;
-                ctx2.drawImage(img, x, y, hunterW, hunterH); console.log("x: " + x + " y: " + y);
-                if (checkCollision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
-                    console.log("Colision");
-                    Swal.fire({
-                        title: "Colision",
-                        icon: "confirm"
-                    });
-                }
-
-            }
-            if (x == 244 && y == 482) {
-                endMenu();
-                ctx2.clearRect(0, 0, canvas.width, canvas.height);
-                drawCh();
-                y = 2;
-                x = 228;
-                me = true;
-                document.getElementById("play").removeAttribute("disabled");
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload(); // Refresh the page
+                    }
+                });
+                document.getElementById('music').addEventListener('ended', function () {
+                    this.pause();
+                });;
+                console.log("konec");
             }
 
-            break;
-
-
-        case "ArrowLeft":
-            if (arr[(x - 4) / m * 2 + 1 - 1][(y - 2) / m * 2 + 1] == 0) {
-                ctx2.clearRect(0, 0, canvas.width, canvas.height);
-                x = x - m;
-                ctx2.drawImage(img, x, y, hunterW, 16); console.log("x: " + x + " y: " + y);
-                if (checkCollision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
-                    console.log("Colision");
-                    Swal.fire({
-                        title: "Colision",
-                        icon: "confirm"
-                    });
-                }
+            if (currentIndex == 0) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawMaze();
+                ctx.drawImage(char1, 0, 64, 24, 32, 228, 2, chW, chH);
             }
-
-            break;
-
-        case "ArrowRight":
-            if (arr[(x - 4) / m * 2 + 1 + 1][(y - 2) / m * 2 + 1] == 0) {
-                ctx2.clearRect(0, 0, canvas.width, canvas.height);
-                x = x + m;
-                ctx2.drawImage(img, x, y, hunterW, hunterH);
-                console.log("x: " + x + " y: " + y);
-                if (checkCollision(x, y, hunterW, hunterH, xCowboy, yCowboy, cowboyW, cowboyH)) {
-                    console.log("Colision");
-                    Swal.fire({
-                        title: "Colision",
-                        icon: "confirm"
-                    });
-                }
+            else if (x < prevX) {
+                //left
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawMaze();
+                ctx.drawImage(char1, 0, 96, 24, 32, x, y, chW, chH);
             }
-
-            break;
+            else if (x > prevX) {
+                //right
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawMaze();
+                ctx.drawImage(char1, 0, 32, 24, 32, x, y, chW, chH);
+            }
+            else if (y > prevY) {
+                //down
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawMaze();
+                ctx.drawImage(char1, 0, 64, 24, 32, x, y, chW, chH);
+            }
+            else if (y < prevY) {
+                //up
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                drawMaze();
+                ctx.drawImage(char1, 0, 0, 24, 32, x, y, chW, chH);
+            }
+            currentIndex++;
+            // Request the next frame
+            
+            setTimeout(drawChar1, 50);
+        }
     }
+    drawChar1();
 
-});
+    var ch2W = 12;
+    var ch2H = 15;
+    var currentIndex2 = 0;
+    function drawChar2() {
+        if (currentIndex2 < pointsArray.length) {
+            var point = pointsArray[currentIndex2];
+            var curX = point[0] - ch2W + 7;
+            var curY = point[1] - ch2H + 7;
+            var prevPoint = currentIndex2 > 0 ? pointsArray[currentIndex2 - 1] : point;
+            var prevX1 = prevPoint[0] - ch2W + 7;
+            var prevY1 = prevPoint[1] - ch2H + 7;
 
+            if (currentIndex2 == 0) {
+                ctx1.clearRect(curX, curY, ch2W, ch2H);
+                drawMaze();
+                ctx1.drawImage(char2, 0, 64, 24, 32, 228, 2, ch2W, ch2H);
+            }
+            else if (curX < prevX1) {
+                //left
+                ctx1.clearRect(curX, curY, ch2W, ch2H);
+                drawMaze();
+                ctx1.drawImage(char2, 0, 96, 24, 32, curX, curY, ch2W, ch2H);
+            }
+            else if (curX > prevX1) {
+                //right
+                ctx1.clearRect(curX, curY, ch2W, ch2H);
+                drawMaze();
+                ctx1.drawImage(char2, 0, 32, 24, 32, curX, curY, ch2W, ch2H);
+            }
+            else if (curY > prevY1) {
+                //down
+                ctx1.clearRect(curX, curY, ch2W, ch2H);
+                drawMaze();
+                ctx1.drawImage(char2, 0, 64, 24, 32, curX, curY, ch2W, ch2H);
+            }
+            else if (curY < prevY1) {
+                //up
+                ctx1.clearRect(curX, curY, ch2W, ch2H);
+                drawMaze();
+                ctx1.drawImage(char2, 0, 0, 24, 32, curX, curY, ch2W, ch2H);
+            }
 
-get_px = (ctx, x, y) => {
-    return ctx.getImageData(x, y, 1, 1).data;
-};
+            currentIndex2++;
 
-var w = 30;
-var h = 30;
-arr = new Array(w * 2 + 1);
-for (var i = 0; i < arr.length; i++) {
-    arr[i] = new Array(h * 2 + 1);
-    arr[i].fill(0);
-}
-var xStart = 2 * scale;
-var yStart = 2 * scale;
-var xSize = 16 * scale;
-
-for (var i = 0; i < w * 2 + 1; i++) {
-    for (var j = 0; j < h * 2 + 1; j++) {
-        var wi = xStart + xSize / 2 * i;
-        var hj = yStart + xSize / 2 * j;
-        var cl = get_px(ctx, wi, hj);
-        if (cl[3] != 0) {
-            arr[i][j] = 1;
+            // Request the next frame
+            setTimeout(drawChar2, 60);
         }
     }
 }
-
-function checkCollision(x1, y1, w1, h1, x2, y2, w2, h2) {
-    if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2) {
-        return false;
-    } else
-        return true;
-}*/
-
-function checkCollisionCactus(x1, y1, w1, h1, x2, y2, w2, h2) {
-    if (x2 > w1 + x1 || x1 > w2 + x2 || y2 > h1 + y1 || y1 > h2 + y2) {
-        return false;
-    } else
-        return true;
-}
-}
-

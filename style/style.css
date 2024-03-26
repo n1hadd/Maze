@@ -24,8 +24,10 @@ body {
 }
 
 .custom-div {
-    width: 900px; /* Same width as .poster */
-    height: 950px; /* Same height as .poster */
+    width: 900px;
+    /* Same width as .poster */
+    height: 950px;
+    /* Same height as .poster */
     position: fixed;
     top: 50%;
     left: 50%;
@@ -33,19 +35,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 0; /* Adjust z-index as needed */
-    
+    z-index: 0;
+    /* Adjust z-index as needed */
 }
 
 .poster {
     width: 900px;
-    height: 950px; /* Adjust this as needed */
+    height: 950px;
+    /* Adjust this as needed */
     display: flex;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin: 0 auto; /* Center horizontally */
+    margin: 0 auto;
+    /* Center horizontally */
     z-index: 2;
 }
 
@@ -63,86 +67,145 @@ body {
     align-items: center;
 }
 
-
 .title {
     font-family: 'Wild West Shadow', sans-serif;
     font-size: 55px;
     color: rgb(48, 35, 12);
 }
 
+:root {
+    --saloon-top-offset: 13%;
+    /* Default offset from the top */
+}
+
+.saloon {
+    width: 80px;
+    height: 60px;
+    z-index: 200;
+    position: fixed;
+    top: var(--saloon-top-offset);
+    /* Use CSS variable for dynamic positioning */
+    left: 49%;
+    transform: translateX(-50%);
+}
+
+@media screen and (max-height: 700px) {
+    :root {
+        --saloon-top-offset: 40%;
+        /* Adjust offset for smaller screens */
+    }
+}
+
+@media screen and (max-height: 500px) {
+    :root {
+        --saloon-top-offset: 30%;
+        /* Further adjust offset for even smaller screens */
+    }
+}
+
+.saloon img {
+    width: 100%;
+}
+
 #maze {
     width: 700px;
     height: 700px;
     position: fixed;
-    top: 55%; /* Adjust as needed */
+    top: 55%;
+    /* Adjust as needed */
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 3;
 }
-#maze canvas {
+
+#myCanvas {
     position: absolute;
     top: 0;
     left: 0;
-    z-index: 1;
+    z-index: 300;
+
+}
+
+#myCanvas1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 300;
 }
 
 #signpost {
-    width: 20%; /* Adjust width as needed */
-    height: 50%; /* Adjust height as needed */
+    width: 20%;
+    /* Adjust width as needed */
+    height: 50%;
+    /* Adjust height as needed */
     position: fixed;
     top: 55%;
-    left: calc(75% + 100px); /* Initial position */
+    left: calc(75% + 100px);
+    /* Initial position */
     transform: translateY(-50%);
-    z-index: 100; 
+    z-index: 100;
 }
 
+
 /* Media query for smaller screens */
+
 @media screen and (max-width: 768px) {
     #signpost {
-        left: calc(85% + 100px); /* Adjust left position for smaller screens */
+        left: calc(85% + 100px);
+        /* Adjust left position for smaller screens */
     }
 }
 
+
 /* Media query for even smaller screens */
+
 @media screen and (max-width: 480px) {
     #signpost {
-        left: calc(90% + 200px); /* Adjust left position for even smaller screens */
+        left: calc(90% + 200px);
+        /* Adjust left position for even smaller screens */
     }
 }
 
 #signpost img {
-    position: absolute; /* Set image position to relative */
-    display: block; /* Ensure the image is displayed as a block element */
-    margin: 0 auto; /* Center the image horizontally */
-    width: 100%; /* Set image width to 100% */
-    height: auto; /* Maintain aspect ratio */
+    position: absolute;
+    /* Set image position to relative */
+    display: block;
+    /* Ensure the image is displayed as a block element */
+    margin: 0 auto;
+    /* Center the image horizontally */
+    width: 100%;
+    /* Set image width to 100% */
+    height: auto;
 }
 
 .top-button {
-    position: relative; /* Set button position to relative */
-    left: 40%; /* Adjust left positioning as needed */
-    top: 15%; /* Adjust top positioning as needed */
-    transform: translateX(-50%); /* Center buttons horizontally */
-    display: block; /* Ensure buttons are displayed as block elements */
-    margin-bottom: calc(var(--button-margin) * 1px); /* Set initial margin */
-    font-size: 16px; /* Adjust font size as needed */
+    position: relative;
+    left: 40%;
+    top: 15%;
+    transform: translateX(-50%);
+    display: block;
+    margin-bottom: calc(var(--button-margin) * 1px);
+    font-size: 16px;
 }
 
 
 /* Adjust margin based on the height of the signpost */
+
 @media (min-height: 600px) {
     #signpost {
-        --button-margin: 100; /* Adjust margin value for higher signpost heights */
+        --button-margin: 100;
+        /* Adjust margin value for higher signpost heights */
     }
 }
 
 @media (min-height: 800px) {
     #signpost {
-        --button-margin: 100; /* Adjust margin value for even higher signpost heights */
+        --button-margin: 100;
+        /* Adjust margin value for even higher signpost heights */
     }
 }
 
-.button-style{
+.button-style {
     background: #c4964d;
     border-radius: 30%;
     padding: 10px;
@@ -152,10 +215,65 @@ body {
     font-size: 25px;
 }
 
+.sweet {
+    width: 378px;
+    height: 512px;
+    font-family: 'WildWest', sans-serif;
+    font-size: 25px;
+    font-weight: bold;
+    background: url('../images/scroll1.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
+.title1 {
+    font-family: 'WildWest', sans-serif;
+    font-size: 50px;
+    margin-top: 40px;
+    color: #5f4721 !important;
+}
 
+.title2 {
+    font-family: 'WildWest', sans-serif;
+    font-size: 50px;
+    margin-top: 10px;
+    color: #5f4721 !important;
+}
 
+.text {
+    font-size: 20px !important;
+    font-weight: bold !important;
+    font-family: 'WildWest', sans-serif !important;
+    color: #5f4721 !important;
+}
 
+.confirmBut {
+    width: 80px;
+    height: 30px;
+    background: #5f4721 !important;
+    border-radius: 30%;
+    padding: 10px;
+    border: none !important;
+    font-family: 'WildWest', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    padding: 0;
+}
 
+.confirmBut2 {
+    width: 80px;
+    height: 30px;
+    background: #5f4721 !important;
+    border-radius: 30%;
+    padding: 10px;
+    margin-bottom: -50px !important;
+    border: none !important;
+    font-family: 'WildWest', sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    padding: 0;
+}
 
-
+.ico {
+    color: black;
+}
