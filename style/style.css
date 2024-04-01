@@ -193,14 +193,14 @@ body {
 
 @media (min-height: 600px) {
     #signpost {
-        --button-margin: 100;
+        --button-margin: 50;
         /* Adjust margin value for higher signpost heights */
     }
 }
 
 @media (min-height: 800px) {
     #signpost {
-        --button-margin: 100;
+        --button-margin: 50;
         /* Adjust margin value for even higher signpost heights */
     }
 }
@@ -218,33 +218,34 @@ body {
 .sweet {
     width: 378px;
     height: 512px;
-    font-family: 'WildWest', sans-serif;
-    font-size: 25px;
+    font-size: 20px;
     font-weight: bold;
     background: url('../images/scroll1.png');
     background-repeat: no-repeat;
     background-size: cover;
+    font-size: 20px !important;
+    font-weight: bold !important;
+    font-family: 'WildWest', sans-serif;
+    font-weight: bold;
+    color: #5f4721 !important;
 }
 
 .title1 {
     font-family: 'WildWest', sans-serif;
     font-size: 50px;
-    margin-top: 40px;
+    position: relative;
+    top: -40px;
     color: #5f4721 !important;
 }
 
 .title2 {
     font-family: 'WildWest', sans-serif;
-    font-size: 50px;
-    margin-top: 10px;
+    font-size: 30px;
     color: #5f4721 !important;
 }
 
 .text {
-    font-size: 20px !important;
-    font-weight: bold !important;
-    font-family: 'WildWest', sans-serif !important;
-    color: #5f4721 !important;
+    
 }
 
 .confirmBut {
@@ -266,7 +267,7 @@ body {
     background: #5f4721 !important;
     border-radius: 30%;
     padding: 10px;
-    margin-bottom: -50px !important;
+    margin-bottom: 0px !important;
     border: none !important;
     font-family: 'WildWest', sans-serif;
     font-weight: bold;
@@ -274,6 +275,7 @@ body {
     padding: 0;
 }
 
-.ico {
-    color: black;
+.ico{
+    position: relative;
+    top: -50px;
 }

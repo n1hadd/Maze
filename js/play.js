@@ -2671,47 +2671,45 @@ var pointsArray = [
     [250, 482]
 ];
 
+var cactusLoc = [
+    [132, 82],
+    [228, 98],
+    [244, 66],
+    [260, 178],
+    [196, 146],
+    [292, 258],
+    [276, 290],
+    [244, 354],
+    [324, 354],
+    [340, 354],
+    [404, 338],
+    [436, 402],
+    [420, 466],
+    [292, 466],
+    [244, 402],
+    [212, 418],
+    [212, 450]
+];
+
 var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
-var canvas1 = document.getElementById('myCanvas1');
-var ctx1 = canvas.getContext('2d');
 
-
-function showCreditsAlert() {
-    Swal.fire({
-        title: 'Credits',
-        html: "Author: <br>Nihad Ajdaroski, <br> 4. Ra",
-        imageUrl: 'https://i.imgur.com/b4UNLa0.png',
-        imageWidth: 128,
-        imageHeight: 128,
-        animation: false,
-        confirmButtonText: 'OK',
-        customClass: {
-            popup: 'sweet',
-            title: 'title1',
-            confirmButton: 'confirmBut'
-        }
-    });
-}
-
-function refreshPage() {
-    location.reload();
-}
-
-function run() {
+function init() {
 
     sound = new Audio('wildwest.mp3');
-    sound.volume = 0.30;
+    sound.volume = 0.05;
 
     document.addEventListener("click", (event) => {
         sound.play();
     });;
 
     function disableButton() {
-        document.getElementById("myButton").disabled = true;
+        document.getElementById("myButton2").disabled = true;
     }
     disableButton();
+
+
     var scale = 1.4463;
 
     function drawMaze() {
@@ -2730,94 +2728,19 @@ function run() {
         ctx.closePath();
     }
 
-    var char1 = new Image();
-    char1.src = 'images/char1.png';
-    var char2 = new Image();
-    char2.src = 'images/char2.png';
-
-    var spriteClips = {
-        'up': { x: 0, y: 0 },
-        'right': { x: 0, y: 32 },
-        'down': { x: 0, y: 64 },
-        'left': { x: 0, y: 96 }
-    };
-
-    var currentIndex = 0;
-    var chW = 12;
-    var chH = 15;
-    var pathPoints = []; 
-
-function drawChar1() {
-    if (currentIndex < pointsArray.length) {
-        var point = pointsArray[currentIndex];
-        var x = point[0] - chW + 7.4;
-        var y = point[1] - chH + 7.4;
-        var prevPoint = currentIndex > 0 ? pointsArray[currentIndex - 1] : point;
-        var prevX = prevPoint[0] - chW + 7.4;
-        var prevY = prevPoint[1] - chH + 7.4;
-
-        ctx.beginPath();
-        ctx.strokeStyle = "#5C5337";
-        ctx.lineWidth = 3;
-
-        for (var i = 0; i < pathPoints.length; i++) {
-            ctx.lineTo(pathPoints[i][0], pathPoints[i][1]);
+    var cactusW = 18;
+    var cactusH = 15;
+    var cactusX;
+    var cactusY;
+    function drawCactus() {
+        var cactusImg = new Image();
+        cactusImg.src = 'images/cactus.png';
+        for (i = 0; i < cactusLoc.length; i++) {
+            var p = cactusLoc[i];
+            cactusX = p[0] - 4;
+            cactusY = p[1];
+            ctx.drawImage(cactusImg, cactusX, cactusY, cactusW, cactusH);
         }
-        ctx.stroke();
-
-        if (x == 250 - chW + 7.4 && y == 482 - chH + 7.4) {
-            Swal.fire({
-                title: 'Maze mastered, <br>cowboy!',
-                imageUrl: 'https://i.imgur.com/7t35Cbj.png',
-                imageWidth: 128,
-                imageHeight: 128,
-                animation: false,
-                confirmButtonText: 'OK',
-                customClass: {
-                    imageUrl: 'ico',
-                    popup: 'sweet',
-                    title: 'title2',
-                    confirmButton: 'confirmBut2'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    location.reload(); // Refresh the page
-                }
-            });
-            document.getElementById('music').addEventListener('ended', function () {
-                this.pause();
-            });;
-            console.log("konec");
-        }
-        
-        ctx.clearRect(prevX, prevY, chW, chH);
-
-        if (currentIndex == 0) {
-            drawMaze();
-            ctx.drawImage(char1, 0, 64, 24, 32, 228, 2, chW, chH);
-        } else {
-            if (x < prevX) {
-                //left
-                ctx.drawImage(char1, 0, 96, 24, 32, x, y, chW, chH);
-            } else if (x > prevX) {
-                //right
-                ctx.drawImage(char1, 0, 32, 24, 32, x, y, chW, chH);
-            } else if (y > prevY) {
-                //down
-                ctx.drawImage(char1, 0, 64, 24, 32, x, y, chW, chH);
-            } else if (y < prevY) {
-                //up
-                ctx.drawImage(char1, 0, 0, 24, 32, x, y, chW, chH);
-            }
-        }
-
-        pathPoints.push([point[0], point[1]]);
-
-        currentIndex++;
-        setTimeout(drawChar1, 50);
     }
-}
-drawChar1();
-
-
+    drawCactus();
 }
