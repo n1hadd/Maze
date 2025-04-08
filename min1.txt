@@ -1,0 +1,35 @@
+min1.txt:
+7x8
+8
+0 0 0 5 S
+0 3 2 3 Z
+0 2 5 3 S
+0 5 7 4 J
+1 0 6 5 J
+1 4 6 3 Z
+1 2 4 3 Z
+1 3 3 4 J
+
+Expected:
+# # # # # # # # # # # # # # # # # 
+# p             #       t       # 
+# t             #       t       # 
+# t     p t t   # t     t       # 
+# t             # t     p       # 
+# t         t   # t   p t t     # 
+#     p     t   # t             # 
+#     t     t   # p       p t t # 
+#     t     p   #               # 
+# # # # # # # # # # # # # # # # # 
+
+Result of the code:
+# # # # # # # # # # # # # # # # #
+# p             #       t       #
+# t             #       t       #
+# t     p t t   # t     t       #
+# t             # t     p       #
+# t         t   # t   p t t     #
+#     p     t   # t             #
+#     t     t   # p       p t t #
+#     t     p   #               #
+# # # # # # # # # # # # # # # # #
